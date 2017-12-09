@@ -1,0 +1,38 @@
+James Dimer
+Database Systems
+Fall 2017
+
+Rationality Behind Database Decisions
+
+In order tom make this documentation easier to the eye, I have separated my decisions by section:
+
+Table drops
+	Why in this particular order?
+		Children relations need to be placed before parent relations.
+Student
+	Why “char” element for ID? Why no auto-increment?
+		The decision to implement “char” was simply due to the fact that there is an character “L” in front of all the student’s IDs at Lewis. 
+		Not including auto-increment was a consequence of this decision since it wasn’t an “int”.
+	Why isn’t “mName” not null?
+		Simply put, some people don’t have middle names.
+Course
+	Why “char(4)” for subject?
+		Looking on myLewis, I realized that all courses had a subject consisting of 4 letters (i.e. CPSC, ARTS, ECON, etc…)
+	“TinyInt” for section?
+		Considering the section is represented by 1 number less than 8 (one byte), tinyint seemed appropriate.
+Enrollment
+	Why this table?
+		This table is meant to be the intermediary between a many-to-many relationship
+	Why “on delete set null” and why no “on update cascade”?
+		I wouldn’t want changes to this intermediary relation to affect the primary keys of the student and course relations. Therefore, if 
+		something is deleted on this table, it will not be deleted on the other two. Cascade would also affect the other relations.
+Student Address, Student Phone
+	Why “varchar(4)” when describing type?
+		I imagine 4 options when adding a “type” to address: “home,” “work,” “sch,” and “misc”. This would require only 4 characters or less. 
+		Additionally, “cell” and “home” have only 4 characters.
+	Why “unique” constraint?
+		Every phone number and address is unique, so this constraint is necessary.
+Index
+	Why did you choose to create this index in particular?
+		When I was registering for classes, I realized I was constantly and frequently looking up classes by their subject, mainly computer science. 
+		This definitely made the process much easier.
